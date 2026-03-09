@@ -70,11 +70,11 @@ Arduino calcula la distancia.
 
 Según la distancia:
 
-Distancia > 100 cm → LED 1
+Distancia > 30 cm → LED 1
 
-Distancia entre 50 y 100 cm → LED 2
+Distancia > 15 cm → LED 2
 
-Distancia < 50 cm → LED 3
+Distancia < 15 cm → LED 3
 
 5. Implementación
 5.1 Código Fuente Documentado
@@ -91,20 +91,20 @@ Clase Controlador
 
 Cada clase tiene responsabilidades específicas para mejorar la organización del código.
 
-(En esta sección puedes pegar el código que te di antes).
+link del codigo:
 
-6. Pruebas y Validaciones
+Pruebas y Validaciones
 
 Se realizaron diferentes pruebas colocando objetos a distintas distancias del sensor.
 
-Distancia	Resultado esperado	Resultado obtenido
-> 100 cm	LED 1 encendido	Correcto
-50 – 100 cm	LED 2 encendido	Correcto
-< 50 cm	LED 3 encendido	Correcto
+Distancia     Resultado esperado	  Resultado obtenido
+> 30cm	        LED 1 encendido	         Correcto
+15-30cm	        LED 2 encendido	         Correcto
+< 15cm	        LED 3 encendido	         Correcto
 
 Las pruebas demostraron que el sistema responde correctamente a los cambios de distancia.
 
-7. Resultados
+Resultados:
 
 El sistema logró detectar correctamente la distancia entre el sensor y el objeto.
 
@@ -112,34 +112,33 @@ Los LEDs funcionan como indicadores visuales claros que permiten identificar fá
 
 Además, el uso de programación orientada a objetos permitió desarrollar un código más organizado y modular.
 
-8. Conclusiones
+Conclusiones:
 
-El sistema logró detectar objetos en un rango aproximado de 2 cm a 400 cm, que corresponde al rango operativo del sensor ultrasónico utilizado.
 
-Durante las pruebas realizadas, el sistema mostró un error promedio de medición menor a ±3 cm, lo que demuestra una precisión adecuada para aplicaciones básicas de detección de proximidad.
+El sistema fue capaz de detectar la presencia de objetos dentro de un rango aproximado de 2 cm a 400 cm, lo cual coincide con las especificaciones de funcionamiento del HC-SR04 Ultrasonic Sensor.
 
-El tiempo de respuesta del sistema fue aproximadamente de 200 ms por medición, permitiendo realizar alrededor de 5 mediciones por segundo.
+Durante las pruebas experimentales, las mediciones presentaron un error promedio inferior a ±3 cm, lo que indica que el sistema ofrece un nivel de precisión adecuado para aplicaciones simples de detección de proximidad.
 
-El sistema utilizó 3 LEDs como indicadores de distancia, permitiendo clasificar la proximidad del objeto en tres niveles claramente diferenciados: lejos (>30 cm), distancia media (15–30 cm) y cerca (<15 cm).
+El sistema registró un tiempo de respuesta cercano a los 200 milisegundos por medición, permitiendo realizar aproximadamente cinco mediciones por segundo.
 
-Durante una prueba de funcionamiento continuo de 30 minutos, el sistema mantuvo un funcionamiento estable sin reinicios ni fallos en la lectura del sensor.
+Para indicar la distancia detectada, se utilizaron tres LEDs, los cuales permiten clasificar la proximidad del objeto en tres categorías: lejos (más de 30 cm), distancia intermedia (entre 15 cm y 30 cm) y cercano (menos de 15 cm).
 
-El uso de programación orientada a objetos permitió organizar el código en 3 clases principales, lo que mejora la modularidad y facilita el mantenimiento del software.
+Durante una prueba de operación continua de aproximadamente 30 minutos, el sistema funcionó de manera estable sin presentar reinicios ni errores en la lectura del sensor.
+
+Además, el programa fue desarrollado utilizando programación orientada a objetos, organizando el código en tres clases principales, lo que mejora la estructura del software y facilita su mantenimiento y comprensión.
 
 Recomendaciones
 
-Implementar más niveles de distancia utilizando más LEDs o una pantalla.
+Se podria aprovechar la conectividad wifi o bluetooth del microcontrolador esp32 para enviar los datos mucho mas rapido a una pagina o disp movil.
 
-Utilizar un buzzer para alertas sonoras.
+Se podría añadir un buzzer para generar una señal sonora cuando el objeto se encuentre a una distancia especifica que se requiera.
 
-Implementar una pantalla LCD para mostrar la distancia exacta.
-
-Optimizar el sistema para aplicaciones como sensores de estacionamiento.
+Agregar una pantalla LCD u OLED permitiría mostrar la distancia medida en tiempo real sin necesidad de utilizar el monitor serial.
 
 10. Anexos
 Anexo A: Lista de Materiales
 
-Arduino Uno
+Microcontrolador Esp32
 
 Sensor ultrasónico HC-SR04
 
