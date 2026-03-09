@@ -7,36 +7,36 @@ class Led {
       pin = p;
     }
 
-    void iniciar() {
+    void init() {
       pinMode(pin, OUTPUT);
     }
 
-    void encender() {
+    void turnOn() {
       digitalWrite(pin, HIGH);
     }
 
-    void apagar() {
+    void turnOff() {
       digitalWrite(pin, LOW);
     }
 };
 
-class SensorUltrasonico {
+class UltrasonicSensor {
   private:
     int trigPin;
     int echoPin;
 
   public:
-    SensorUltrasonico(int trig, int echo) {
+    UltrasonicSensor(int trig, int echo) {
       trigPin = trig;
       echoPin = echo;
     }
 
-    void iniciar() {
+    void init() {
       pinMode(trigPin, OUTPUT);
       pinMode(echoPin, INPUT);
     }
 
-    float obtenerDistancia() {
+    float getDistance() {
 
       digitalWrite(trigPin, LOW);
       delayMicroseconds(2);
@@ -45,72 +45,88 @@ class SensorUltrasonico {
       delayMicroseconds(10);
       digitalWrite(trigPin, LOW);
 
-      long duracion = pulseIn(echoPin, HIGH);
+      long duration = pulseIn(echoPin, HIGH);
 
-      float distancia = duracion * 0.034 / 2;
+      float distance = duration * 0.034 / 2;
 
-      return distancia;
+      return distance;
     }
 };
 
-class ControladorLeds {
+class LedController {
   private:
     Led &led1;
     Led &led2;
     Led &led3;
 
   public:
-    ControladorLeds(Led &l1, Led &l2, Led &l3) : led1(l1), led2(l2), led3(l3) {}
+    LedController(Led &l1, Led &l2, Led &l3) : led1(l1), led2(l2), led3(l3) {}
 
-    void actualizar(float distancia) {
+    void update(float distance) {
 
-      if (distancia > 30) {
-        led1.encender();
-        led2.apagar();
-        led3.apagar();
+      if (distance > 30) {
+        led1.turnOn();
+        led2.turnOff();
+        led3.turnOff();
       }
 
-      else if (distancia > 15) {
-        led1.apagar();
-        led2.encender();
-        led3.apagar();
+      else if (distance > 15) {
+        led1.turnOff();
+        led2.turnOn();
+        led3.turnOff();
       }
 
       else {
-        led1.apagar();
-        led2.apagar();
-        led3.encender();
+        led1.turnOff();
+        led2.turnOff();
+        led3.turnOn();
       }
     }
 };
 
-Led led1(8);
-Led led2(9);
-Led led3(10);
+Led led1(5);
+Led led2(4);
+Led led3(12);
 
-SensorUltrasonico sensor(6,7);
+UltrasonicSensor sensor(18,35);
 
-ControladorLeds controlador(led1, led2, led3);
+LedController controller(led1, led2, led3);
+
+float previousDistance = 0;
 
 void setup() {
 
-  led1.iniciar();
-  led2.iniciar();
-  led3.iniciar();
+  led1.init();
+  led2.init();
+  led3.init();
 
-  sensor.iniciar();
+  sensor.init();
 
   Serial.begin(9600);
 }
 
 void loop() {
 
-  float distancia = sensor.obtenerDistancia();
+  float sum = 0;
+  int samples = 5;
 
-  Serial.print("Distancia: ");
-  Serial.println(distancia);
+  for(int i = 0; i < samples; i++){
+    sum += sensor.getDistance();
+    delay(20);
+  }
 
-  controlador.actualizar(distancia);
+  float distance = sum / samples;
+
+  // MINIMUM CHANGE FILTER
+  if(abs(distance - previousDistance) > 3){
+    previousDistance = distance;
+  }
+
+  Serial.print("Distance: ");
+  Serial.print(previousDistance);
+  Serial.println(" cm");
+
+  controller.update(previousDistance);
 
   delay(200);
 }
