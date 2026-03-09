@@ -1,4 +1,4 @@
-Requerimientos Funcionales
+1. Requerimientos Funcionales
 
 El sistema debe cumplir las siguientes funciones:
 
@@ -14,7 +14,7 @@ Apagar los demás LEDs cuando uno esté activo.
 
 Mostrar la distancia detectada en el monitor serial.
 
-Requerimientos No Funcionales
+1.1 Requerimientos No Funcionales
 
 El sistema debe cumplir las siguientes características:
 
@@ -24,16 +24,16 @@ Rango de deteccion.
 
 Tiempo de respuesta rápido en la detección de distancia.
 
-Diseño del Sistema
-Diagrama de Bloques
+2. Diseño del Sistema
+2.1 Diagrama de Bloques
 
 <img width="234" height="282" alt="dia drawio" src="https://github.com/user-attachments/assets/f2e9b176-ab8c-42f3-8756-d2f054137970" />
 
-Diagrama de Circuito
+2.2 Diagrama de Circuito
 
 <img width="711" height="378" alt="circ drawio" src="https://github.com/user-attachments/assets/52218eaa-b6e2-4fb9-980c-93bdb6d92281" />
 
-Diagrama de Arquitectura del Sistema
+2.3 Diagrama de Arquitectura del Sistema
 
 <img width="818" height="460" alt="arqui drawio" src="https://github.com/user-attachments/assets/13a6ba15-1dcc-4582-9b1a-b9f54a99cbc6" />
 
@@ -76,24 +76,24 @@ Distancia > 15 cm → LED 2
 
 Distancia < 15 cm → LED 3
 
-5. Implementación
-5.1 Código Fuente Documentado
+3. Implementación
+3.1 Código Fuente Documentado
 
 El programa fue desarrollado en el entorno Arduino IDE utilizando programación orientada a objetos.
 
 El código se estructura en tres clases principales:
 
-Clase LED
+1. Class Led
 
-Clase SensorUltrasonico
+2. Class UltrasonicSensor
 
-Clase Controlador
+3. Class LedController
 
 Cada clase tiene responsabilidades específicas para mejorar la organización del código.
 
-link del codigo:
+Link del Codigo:https://github.com/pabloraya/IoT-1-2026/blob/main/codigo%20sensores
 
-Pruebas y Validaciones
+4. Pruebas y Validaciones
 
 Se realizaron diferentes pruebas colocando objetos a distintas distancias del sensor.
 
@@ -104,20 +104,32 @@ Distancia     Resultado esperado	  Resultado obtenido
 
 Las pruebas demostraron que el sistema responde correctamente a los cambios de distancia.
 
-Resultados:
+5. Resultados:
 
-El sistema logró detectar correctamente la distancia entre el sensor y el objeto.
+Para evaluar el funcionamiento del sistema se realizaron varias mediciones comparando la distancia real con la distancia detectada por el sensor ultrasónico.
+
+Distancia real (cm)	Distancia medida (cm)	Error (cm)
+    5	                      6	                1
+    10	                    11	              1
+    15	                    16	              1
+    20	                    22	              2
+    25	                    24	              1
+    30	                    29	              1
+    40	                    42	              2
+    50	                    48	              2
+Tabla 1. Comparación entre la distancia real y la distancia medida por el sensor.
+
+A partir de los datos obtenidos se observa que el sistema logró detectar correctamente la distancia entre el sensor y el objeto.
 
 Los LEDs funcionan como indicadores visuales claros que permiten identificar fácilmente la proximidad del objeto.
 
 Además, el uso de programación orientada a objetos permitió desarrollar un código más organizado y modular.
-
-Conclusiones:
-
+  
+6. Conclusiones:
 
 El sistema fue capaz de detectar la presencia de objetos dentro de un rango aproximado de 2 cm a 400 cm, lo cual coincide con las especificaciones de funcionamiento del HC-SR04 Ultrasonic Sensor.
 
-Durante las pruebas experimentales, las mediciones presentaron un error promedio inferior a ±3 cm, lo que indica que el sistema ofrece un nivel de precisión adecuado para aplicaciones simples de detección de proximidad.
+Como se pudo ver en la tabla de resltados, se realizaron varias mediciones comparando la distancia real con la distancia obtenida por el sensor. Se Muestra que el error de medición se mantiene dentro de un rango aproximado de ±2 cm, lo cual es aceptable para aplicaciones básicas de detección de proximidad.
 
 El sistema registró un tiempo de respuesta cercano a los 200 milisegundos por medición, permitiendo realizar aproximadamente cinco mediciones por segundo.
 
@@ -127,7 +139,7 @@ Durante una prueba de operación continua de aproximadamente 30 minutos, el sist
 
 Además, el programa fue desarrollado utilizando programación orientada a objetos, organizando el código en tres clases principales, lo que mejora la estructura del software y facilita su mantenimiento y comprensión.
 
-Recomendaciones
+7. Recomendaciones
 
 Se podria aprovechar la conectividad wifi o bluetooth del microcontrolador esp32 para enviar los datos mucho mas rapido a una pagina o disp movil.
 
@@ -135,7 +147,7 @@ Se podría añadir un buzzer para generar una señal sonora cuando el objeto se 
 
 Agregar una pantalla LCD u OLED permitiría mostrar la distancia medida en tiempo real sin necesidad de utilizar el monitor serial.
 
-10. Anexos
+8. Anexos
 Anexo A: Lista de Materiales
 
 Microcontrolador Esp32
@@ -151,5 +163,13 @@ Protoboard
 Cables jumper
 
 Anexo B: Circuito del proyecto
+![5006148687369014240](https://github.com/user-attachments/assets/635f8504-b02b-4827-ac13-0745e2ca4183)
 
-Aquí puedes insertar la imagen del circuito que mostraste.
+![5006148687369014243](https://github.com/user-attachments/assets/7779c1c4-fa99-4f7e-aa51-841ebf129206)
+
+![5006148687369014242](https://github.com/user-attachments/assets/a5c09668-015c-48cb-bc21-e69a4c8641d9)
+
+![5006148687369014245](https://github.com/user-attachments/assets/4c7c0a71-fb1f-45cb-b9f6-0a4b4e4b9f70)
+
+![5006148687369014241](https://github.com/user-attachments/assets/b8f89f21-50b8-42ed-8e42-bd1ef9e605c1)
+
