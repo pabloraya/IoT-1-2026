@@ -126,7 +126,7 @@ Durante una prueba de funcionamiento continuo de 30 minutos, el sistema mantuvo 
 
 El uso de programación orientada a objetos permitió organizar el código en 3 clases principales, lo que mejora la modularidad y facilita el mantenimiento del software.
 
-9. Recomendaciones
+Recomendaciones
 
 Implementar más niveles de distancia utilizando más LEDs o una pantalla.
 
