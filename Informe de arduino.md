@@ -127,7 +127,7 @@ Además, el uso de programación orientada a objetos permitió desarrollar un c�
   
 6. Conclusiones:
 
-El sistema fue capaz de detectar la presencia de objetos dentro de un rango aproximado de 2 cm a 400 cm, lo cual coincide con las especificaciones de funcionamiento del HC-SR04 Ultrasonic Sensor.
+El sistema fue capaz de detectar la presencia de objetos dentro de un rango aproximado de 2 cm a 100 cm, lo cual coincide con las especificaciones de funcionamiento del HC-SR04 Ultrasonic Sensor.
 
 Como se pudo ver en la tabla de resltados, se realizaron varias mediciones comparando la distancia real con la distancia obtenida por el sensor. Se Muestra que el error de medición se mantiene dentro de un rango aproximado de ±2 cm, lo cual es aceptable para aplicaciones básicas de detección de proximidad.
 
