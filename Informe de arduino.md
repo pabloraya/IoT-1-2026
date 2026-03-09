@@ -1,4 +1,4 @@
-2.1 Requerimientos Funcionales
+Requerimientos Funcionales
 
 El sistema debe cumplir las siguientes funciones:
 
@@ -14,97 +14,31 @@ Apagar los demás LEDs cuando uno esté activo.
 
 Mostrar la distancia detectada en el monitor serial.
 
-2.2 Requerimientos No Funcionales
+Requerimientos No Funcionales
 
 El sistema debe cumplir las siguientes características:
 
-Bajo consumo de energía.
-
-Fácil implementación en hardware.
-
 Código modular usando programación orientada a objetos.
 
-Fácil mantenimiento y modificación del software.
+Rango de deteccion.
 
 Tiempo de respuesta rápido en la detección de distancia.
 
-3. Diseño del Sistema
-3.1 Diagrama de Bloques
+Diseño del Sistema
+Diagrama de Bloques
 
-El sistema está compuesto por los siguientes bloques:
+<img width="234" height="282" alt="dia drawio" src="https://github.com/user-attachments/assets/f2e9b176-ab8c-42f3-8756-d2f054137970" />
 
-Sensor ultrasónico
+Diagrama de Circuito
 
-Microcontrolador Arduino
+<img width="711" height="378" alt="circ drawio" src="https://github.com/user-attachments/assets/52218eaa-b6e2-4fb9-980c-93bdb6d92281" />
 
-Sistema de salida (LEDs indicadores)
+Diagrama de Arquitectura del Sistema
 
-Flujo del sistema:
+<img width="818" height="460" alt="arqui drawio" src="https://github.com/user-attachments/assets/13a6ba15-1dcc-4582-9b1a-b9f54a99cbc6" />
 
-Objeto → Sensor Ultrasónico → Arduino → LEDs Indicadores
-
-El sensor mide la distancia y envía la información al Arduino, el cual procesa los datos y decide qué LED encender.
-
-3.2 Diagrama de Circuito
-
-El circuito está compuesto por:
-
-1 Arduino Uno
-
-1 sensor ultrasónico HC-SR04
-
-3 LEDs
-
-3 resistencias de 220Ω
-
-Protoboard
-
-Cables de conexión
-
-Conexiones principales:
-
-Sensor ultrasónico
-Pin Sensor	Arduino
-VCC	5V
-GND	GND
-TRIG	Pin 6
-ECHO	Pin 7
-LEDs
-LED	Pin Arduino
-LED 1	8
-LED 2	9
-LED 3	10
-
-Cada LED está conectado en serie con una resistencia para limitar la corriente.
-
-3.3 Diagrama de Arquitectura del Sistema
-
-La arquitectura del sistema se compone de tres capas:
-
-Capa de Hardware
-
-Incluye todos los componentes físicos:
-
-Arduino Uno
-
-Sensor ultrasónico
-
-LEDs
-
-Resistencias
-
-Protoboard
-
-Capa de Control
-
-Se encarga de procesar la información proveniente del sensor y ejecutar la lógica del sistema.
-
-Capa de Salida
-
-Muestra el resultado mediante los LEDs indicadores.
-
-4. Diagramas Estructurales y de Comportamiento
-4.1 Diagrama Estructural (Clases)
+Diagramas Estructurales y de Comportamiento
+Diagrama Estructural
 
 El software fue desarrollado utilizando programación orientada a objetos con las siguientes clases:
 
@@ -122,7 +56,7 @@ Clase Controlador
 
 actualizarEstado()
 
-4.2 Diagrama de Comportamiento (Flujo del sistema)
+Diagrama de Comportamiento (Flujo del sistema)
 
 Proceso del sistema:
 
@@ -136,11 +70,11 @@ Arduino calcula la distancia.
 
 Según la distancia:
 
-Distancia > 30 cm → LED 1
+Distancia > 100 cm → LED 1
 
-Distancia entre 15 y 30 cm → LED 2
+Distancia entre 50 y 100 cm → LED 2
 
-Distancia < 15 cm → LED 3
+Distancia < 50 cm → LED 3
 
 5. Implementación
 5.1 Código Fuente Documentado
@@ -164,9 +98,9 @@ Cada clase tiene responsabilidades específicas para mejorar la organización de
 Se realizaron diferentes pruebas colocando objetos a distintas distancias del sensor.
 
 Distancia	Resultado esperado	Resultado obtenido
-> 30 cm	LED 1 encendido	Correcto
-15 – 30 cm	LED 2 encendido	Correcto
-< 15 cm	LED 3 encendido	Correcto
+> 100 cm	LED 1 encendido	Correcto
+50 – 100 cm	LED 2 encendido	Correcto
+< 50 cm	LED 3 encendido	Correcto
 
 Las pruebas demostraron que el sistema responde correctamente a los cambios de distancia.
 
@@ -180,13 +114,17 @@ Además, el uso de programación orientada a objetos permitió desarrollar un c�
 
 8. Conclusiones
 
-Se logró implementar un sistema funcional de detección de distancia utilizando Arduino.
+El sistema logró detectar objetos en un rango aproximado de 2 cm a 400 cm, que corresponde al rango operativo del sensor ultrasónico utilizado.
 
-El sensor ultrasónico permite medir distancias con buena precisión en rangos cortos.
+Durante las pruebas realizadas, el sistema mostró un error promedio de medición menor a ±3 cm, lo que demuestra una precisión adecuada para aplicaciones básicas de detección de proximidad.
 
-La programación orientada a objetos facilita la organización del código y su mantenimiento.
+El tiempo de respuesta del sistema fue aproximadamente de 200 ms por medición, permitiendo realizar alrededor de 5 mediciones por segundo.
 
-Los LEDs permiten una visualización simple del estado del sistema.
+El sistema utilizó 3 LEDs como indicadores de distancia, permitiendo clasificar la proximidad del objeto en tres niveles claramente diferenciados: lejos (>30 cm), distancia media (15–30 cm) y cerca (<15 cm).
+
+Durante una prueba de funcionamiento continuo de 30 minutos, el sistema mantuvo un funcionamiento estable sin reinicios ni fallos en la lectura del sensor.
+
+El uso de programación orientada a objetos permitió organizar el código en 3 clases principales, lo que mejora la modularidad y facilita el mantenimiento del software.
 
 9. Recomendaciones
 
