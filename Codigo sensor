@@ -1,0 +1,50 @@
+#include <WiFi.h>
+
+const char* ssid = "TU_WIFI";
+const char* password = "TU_PASSWORD";
+
+const char* serverIP = "192.168.1.100"; // IP de tu PC
+const int serverPort = 5000;
+
+WiFiClient client;
+
+int trigPin = 5;
+int echoPin = 18;
+
+long duration;
+float distance;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.println("Conectando...");
+  }
+
+  Serial.println("Conectado al WiFi");
+}
+
+void loop() {
+  // Medir distancia
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+
+  if (client.connect(serverIP, serverPort)) {
+    String json = "{\"type\":\"PUT\",\"distance\":" + String(distance) + "}";
+    client.println(json);
+    client.stop();
+  }
+
+  delay(2000);
+}
