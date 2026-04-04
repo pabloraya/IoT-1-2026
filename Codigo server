@@ -1,0 +1,39 @@
+import socket
+import json
+
+HOST = '0.0.0.0'
+PORT = 5000
+
+actuator_ip = "192.168.1.101"
+actuator_port = 6000
+
+def send_to_actuator(data):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((actuator_ip, actuator_port))
+    s.send((json.dumps(data) + "\n").encode())
+    s.close()
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind((HOST, PORT))
+server.listen()
+
+print("Servidor listo...")
+
+while True:
+    conn, addr = server.accept()
+    data = conn.recv(1024).decode()
+
+    if data:
+        msg = json.loads(data)
+        distance = msg["distance"]
+
+        print("Distancia:", distance)
+
+        if distance < 50:
+            send_to_actuator({"led": "yellow", "action": "on"})
+        elif distance < 100:
+            send_to_actuator({"led": "orange", "action": "blink"})
+        else:
+            send_to_actuator({"led": "green", "action": "on"})
+
+    conn.close()
