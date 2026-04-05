@@ -37,7 +37,7 @@ Sensor → Servidor → Actuador
 
  4. Diagrama de Circuito
 
-![d circuito](https://github.com/user-attachments/assets/3e50ec06-a33f-47b0-af7e-eef3f99ce447)
+![d ciarcuito corregido](https://github.com/user-attachments/assets/99ac929b-c73c-45e7-9491-387e80aeb402)
 
  5. Diagrama de Arquitectura del Sistema
 
@@ -72,9 +72,9 @@ sistema utiliza el protocolo **TCP sobre WiFi (IEEE 802.11)** con mensajes en fo
 
  Intervalos definidos
 
-* 0: 0–50 cm → LED amarillo
-* 1: 50–100 cm → LED naranja
-* 2: >100 cm → LED verde
+* 0: 0–50 cm → LED 1
+* 1: 50–100 cm → LED 2
+* 2: >100 cm → LED 3
 
  7. Diagramas Estructurales y de Comportamiento
 
@@ -88,7 +88,7 @@ sistema utiliza el protocolo **TCP sobre WiFi (IEEE 802.11)** con mensajes en fo
 
 * Diagrama de flujo del algoritmo
 
-![flujo](https://github.com/user-attachments/assets/c5f7c109-1645-4316-8beb-7092150356b4)
+![flujo corregido](https://github.com/user-attachments/assets/ae36c73f-c166-4251-afe1-31d173fc4e45)
 
 
 8. Implementación
@@ -120,9 +120,9 @@ Se realizaron pruebas con diferentes distancias:
 
 | Distancia | Resultado esperado | Resultado obtenido |
 | --------- | ------------------ | ------------------ |
-| 30 cm     | LED amarillo       | Correcto           |
-| 65 cm     | LED naranja        | Correcto           |
-| 120 cm    | LED verde          | Correcto           |
+| 30 cm     | LED 1              | Correcto           |
+| 65 cm     | LED 2              | Correcto           |
+| 120 cm    | LED 3              | Correcto           |
 
 
 11. Resultados
