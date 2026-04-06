@@ -4,36 +4,51 @@ import json
 HOST = '0.0.0.0'
 PORT = 5000
 
-actuator_ip = "192.168.1.101"
+actuator_ip = "192.168.100.8"  
 actuator_port = 6000
 
 def send_to_actuator(data):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((actuator_ip, actuator_port))
-    s.send((json.dumps(data) + "\n").encode())
-    s.close()
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(3)
+        s.connect((actuator_ip, actuator_port))
+        s.sendall((json.dumps(data) + "\n").encode())
+        s.close()
+        print("Enviado al actuador:", data)
+    except Exception as e:
+        print("❌ Error actuador:", e)
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
-server.listen()
+server.listen(5)
 
-print("Servidor listo...")
+print("🚀 Server corriendo en puerto 5000...\n")
 
 while True:
     conn, addr = server.accept()
-    data = conn.recv(1024).decode()
+    print(f"📡 Conexión desde {addr}")
 
-    if data:
+    try:
+        data = conn.recv(1024).decode().strip()
+
+        if not data:
+            continue
+
+        print("📥 Datos:", data)
+
         msg = json.loads(data)
-        distance = msg["distance"]
+        distance = msg.get("distance", 0)
 
-        print("Distancia:", distance)
+        print(f"📏 Distancia: {distance} cm")
 
         if distance < 50:
             send_to_actuator({"led": "yellow", "action": "on"})
         elif distance < 100:
-            send_to_actuator({"led": "orange", "action": "blink"})
+            send_to_actuator({"led": "orange", "action": "on"})
         else:
             send_to_actuator({"led": "green", "action": "on"})
+
+    except Exception as e:
+        print("❌ Error server:", e)
 
     conn.close()
