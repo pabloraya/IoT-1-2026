@@ -110,25 +110,16 @@ Tecnologías utilizadas
 
 El código se encuentra en el repositorio organizado en tres módulos:
 
-* Codigo Sensor
-* Codigo Actuador
-* Codigo Server
+* Codigo Sensor P2 (https://github.com/pabloraya/IoT-1-2026/blob/main/Codigo%20sensor%20P2)
+* Codigo Actuador P2 (https://github.com/pabloraya/IoT-1-2026/blob/main/Codigo%20actuador%20P2)
+* Codigo Server P2 (https://github.com/pabloraya/IoT-1-2026/blob/main/Codigo%20server%20P2)
 
  10. Pruebas y Validaciones
-
-Se realizaron pruebas con diferentes distancias:
-
-| Distancia | Resultado esperado | Resultado obtenido |
-| --------- | ------------------ | ------------------ |
-| 30 cm     | LED 1              | Correcto           |
-| 65 cm     | LED 2              | Correcto           |
-| 120 cm    | LED 3              | Correcto           |
-
 
  11. Resultados
 
  12. Conclusiones
-
+El proyecto no pudo completarse debido a problemas de conexión del ESP32 con la red WiFi; sin embargo, se desarrolló correctamente la lógica del sistema y se identificaron factores clave que afectan la implementación de soluciones IoT en entornos reales.
 
 13. Recomendaciones
 
@@ -136,6 +127,7 @@ Se realizaron pruebas con diferentes distancias:
 * Optimizar el consumo energético de los dispositivos.
 * Utilizar protocolos más avanzados como MQTT en futuras versiones.
 * Añadir interfaz gráfica para monitoreo en tiempo real.
+* Probar previamente la conectividad antes de integrar todo el sistema.
 
 14. Anexos
 
