@@ -125,18 +125,10 @@ Se realizaron pruebas con diferentes distancias:
 | 120 cm    | LED 3              | Correcto           |
 
 
-11. Resultados
-
-* El sistema respondió correctamente en el **100% de las pruebas realizadas**.
-* El tiempo promedio de respuesta fue de **1.2 segundos**.
-* La comunicación TCP se mantuvo estable durante toda la ejecución.
+ 11. Resultados
 
  12. Conclusiones
 
-* Se logró implementar un sistema distribuido funcional basado en IoT.
-* El uso de TCP permitió una comunicación confiable entre dispositivos.
-* La arquitectura cliente-servidor facilitó la separación de responsabilidades.
-* El sistema cumplió con todos los requerimientos establecidos.
 
 13. Recomendaciones
 
@@ -147,8 +139,4 @@ Se realizaron pruebas con diferentes distancias:
 
 14. Anexos
 
-* Diagramas generados en Draw.io
-* Código fuente completo
-* Capturas de pruebas realizadas
-* Configuración de red utilizada
 
