@@ -9,6 +9,25 @@ int ledGreen = 15;
 int ledOrange = 2;
 int ledYellow = 4;
 
+void conectarWiFi() {
+  WiFi.begin(ssid, password);
+  Serial.print("Conectando WiFi");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\n✅ Conectado");
+  Serial.println(WiFi.localIP());
+}
+
+void apagarTodo() {
+  digitalWrite(ledGreen, LOW);
+  digitalWrite(ledOrange, LOW);
+  digitalWrite(ledYellow, LOW);
+}
+
 void setup() {
   Serial.begin(115200);
 
@@ -16,31 +35,28 @@ void setup() {
   pinMode(ledOrange, OUTPUT);
   pinMode(ledYellow, OUTPUT);
 
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-  }
-
+  conectarWiFi();
   server.begin();
 }
 
 void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    conectarWiFi();
+  }
+
   WiFiClient client = server.available();
 
   if (client) {
     String request = client.readStringUntil('\n');
+    request.trim();
 
-    if (request.indexOf("green") != -1) {
-      digitalWrite(ledGreen, HIGH);
-    }
+    Serial.println("📩 Recibido: " + request);
 
-    if (request.indexOf("orange") != -1) {
-      digitalWrite(ledOrange, HIGH);
-    }
+    apagarTodo();
 
-    if (request.indexOf("yellow") != -1) {
-      digitalWrite(ledYellow, HIGH);
-    }
+    if (request.indexOf("green") != -1) digitalWrite(ledGreen, HIGH);
+    if (request.indexOf("orange") != -1) digitalWrite(ledOrange, HIGH);
+    if (request.indexOf("yellow") != -1) digitalWrite(ledYellow, HIGH);
 
     client.stop();
   }
