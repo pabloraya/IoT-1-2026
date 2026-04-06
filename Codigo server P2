@@ -4,7 +4,7 @@ import json
 HOST = '0.0.0.0'
 PORT = 5000
 
-actuator_ip = "192.168.100.8"  
+actuator_ip = "192.168.100.47"  
 actuator_port = 6000
 
 def send_to_actuator(data):
