@@ -1,12 +1,12 @@
 #include <WiFi.h>
 
-const char* ssid = "TU_WIFI";
-const char* password = "TU_PASSWORD";
+const char* ssid = "esp32";
+const char* password = "12345678";
 
 WiFiServer server(6000);
 
-int ledGreen = 15;
-int ledOrange = 2;
+int ledGreen = 5;
+int ledOrange = 12;
 int ledYellow = 4;
 
 void conectarWiFi() {
