@@ -33,8 +33,7 @@ Sensor → Servidor → Actuador
 
  3. Diagrama de Bloques
 
-![d bloques](https://github.com/user-attachments/assets/052e92df-393c-4035-83a4-3da9a421a3e1)<img width="1024" height="1536" alt="ChatGPT Image 8 abr 2026, 14_11_27" src="https://github.com/user-attachments/assets/4fd8af93-e750-466c-b7c5-32a12769332d" />
-
+![d bloques](https://github.com/user-attachments/assets/4fd8af93-e750-466c-b7c5-32a12769332d)
 
  4. Diagrama de Circuito
 
