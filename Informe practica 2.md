@@ -32,9 +32,7 @@ El flujo de datos es:
 Sensor → Servidor → Actuador
 
  3. Diagrama de Bloques
-
 ![d bloques](https://github.com/user-attachments/assets/4fd8af93-e750-466c-b7c5-32a12769332d)
-
  4. Diagrama de Circuito
 
 ![d ciarcuito corregido](https://github.com/user-attachments/assets/99ac929b-c73c-45e7-9491-387e80aeb402)
