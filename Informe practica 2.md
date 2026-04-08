@@ -79,6 +79,8 @@ sistema utiliza el protocolo **TCP sobre WiFi (IEEE 802.11)** con mensajes en fo
 * Diagrama de clases (POO)
 
   ![poo](https://github.com/user-attachments/assets/f2b73135-ff00-459a-a445-99a43581638c)
+  <img width="500" height="230" alt="imagen" src="https://github.com/user-attachments/assets/7ceaa420-8194-4889-b212-1d310fca671c" />
+
 
 * Diagrama de secuencia (protocolo)
 
