@@ -83,6 +83,8 @@ sistema utiliza el protocolo **TCP sobre WiFi (IEEE 802.11)** con mensajes en fo
 * Diagrama de secuencia (protocolo)
 
   ![secuencia](https://github.com/user-attachments/assets/ca46cd73-afd9-453a-8491-833573089234)
+  <img width="400" height="500" alt="imagen" src="https://github.com/user-attachments/assets/89e2394a-a22f-4805-8473-f4afae6156bd" />
+
 
 * Diagrama de flujo del algoritmo
 
