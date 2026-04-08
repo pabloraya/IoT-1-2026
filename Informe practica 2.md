@@ -119,13 +119,24 @@ El código se encuentra en el repositorio organizado en tres módulos:
 * Codigo Server P2 (https://github.com/pabloraya/IoT-1-2026/blob/main/Codigo%20server%20P2)
 
  10. Pruebas y Validaciones
+     
+Con el propósito de identificar la causa de los problemas de conectividad en el sistema desarrollado, se llevaron a cabo una serie de pruebas controladas orientadas a evaluar el comportamiento del módulo ESP32 frente a diferentes configuraciones de red y parámetros de conexión. Estas pruebas incluyeron la verificación de conexión a redes institucionales, el uso de un hotspot móvil, la detección de redes disponibles, la validación de credenciales y el análisis de los estados de conexión. A través de este proceso se buscó aislar variables y determinar de manera precisa el origen de la falla en la comunicación WiFi.
 
- 11. Resultados
+Realizamos 6 pruebas en concreto que son:
+Prueba 1: Conexión a red WiFi institucional
+Prueba 2: Conexión a hotspot móvil (iPhone)
+Prueba 3: Verificación de detección de redes WiFi
+Prueba 4: Validación de credenciales
+Prueba 5: Verificación de hardware y configuración
+Prueba 6: Análisis del código de estado WiFi
 
- 12. Conclusiones
+A partir de las pruebas realizadas, no se obtuvieron resultados satisfactorios en cuanto a la conexión del ESP32 a la red WiFi, ya que en todos los escenarios evaluados la comunicación no logró establecerse correctamente. A pesar de haber verificado distintos factores como credenciales, tipo de red y configuración del dispositivo,como no se pudo realizar la coneccion a wifi satisfactoriamente, no se pudo realizar la validacion y funcionamiento correcto del prototipo.
+ 12. Resultados
+
+ 13. Conclusiones
 El proyecto no pudo completarse debido a problemas de conexión del ESP32 con la red WiFi; sin embargo, se desarrolló correctamente la lógica del sistema y se identificaron factores clave que afectan la implementación de soluciones IoT en entornos reales.
 
-13. Recomendaciones
+14. Recomendaciones
 
 * Implementar manejo de errores en la comunicación.
 * Optimizar el consumo energético de los dispositivos.
@@ -134,5 +145,41 @@ El proyecto no pudo completarse debido a problemas de conexión del ESP32 con la
 * Probar previamente la conectividad antes de integrar todo el sistema.
 
 14. Anexos
+    Codigo Prueba de Wifi (Identificacion de redes)
+<img width="629" height="408" alt="Captura de Pantalla 2026-04-08 a la(s) 17 35 23" src="https://github.com/user-attachments/assets/67954e12-7ba4-4889-a2a4-d18774cd597f" />
 
+Codigo para validar coneccion a Wifi
+
+#include <WiFi.h>
+
+const char* ssid = "TU_WIFI";
+const char* password = "TU_PASSWORD";
+
+void setup() {
+  Serial.begin(115200);
+
+  WiFi.begin(ssid, password);
+
+  Serial.print("Conectando a WiFi");
+
+  int intentos = 0;
+
+  while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+    delay(500);
+    Serial.print(".");
+    intentos++;
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\n✅ CONECTADO!");
+    Serial.print("IP: ");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\n❌ NO SE PUDO CONECTAR");
+    Serial.print("Status: ");
+    Serial.println(WiFi.status());
+  }
+}
+
+void loop() {}
 
