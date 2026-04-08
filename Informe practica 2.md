@@ -87,6 +87,8 @@ sistema utiliza el protocolo **TCP sobre WiFi (IEEE 802.11)** con mensajes en fo
 * Diagrama de flujo del algoritmo
 
 ![flujo corregido](https://github.com/user-attachments/assets/ae36c73f-c166-4251-afe1-31d173fc4e45)
+<img width="465" height="583" alt="imagen" src="https://github.com/user-attachments/assets/a922248a-4d8c-45dd-8c03-c6908e720a04" />
+
 
 
 8. Implementación
