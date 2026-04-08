@@ -183,3 +183,6 @@ void setup() {
 
 void loop() {}
 
+Fallo al conectar Wifi
+<img width="847" height="529" alt="Captura de Pantalla 2026-04-08 a la(s) 17 44 54" src="https://github.com/user-attachments/assets/a4f8ca02-0676-4e16-8111-9a4b955d20a5" />
+
