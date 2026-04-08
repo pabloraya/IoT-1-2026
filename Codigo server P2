@@ -1,46 +1,70 @@
-import socket
-import json
+import socket  # Librería para comunicación por red (TCP)
+import json    # Librería para manejar datos en formato JSON
 
+# Dirección del servidor (0.0.0.0 = acepta conexiones desde cualquier IP)
 HOST = '0.0.0.0'
-PORT = 5000
+PORT = 5000  # Puerto donde el servidor escuchará
 
+# Dirección del actuador (ESP32 con LEDs)
 actuator_ip = "192.168.100.47"  
-actuator_port = 6000
+actuator_port = 6000  # Puerto del servidor en el ESP32 actuador
 
+# Función para enviar datos al actuador
 def send_to_actuator(data):
     try:
+        # Crear socket TCP
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(3)
+        s.settimeout(3)  # Tiempo máximo de espera
+
+        # Conectarse al actuador
         s.connect((actuator_ip, actuator_port))
+
+        # Enviar datos en formato JSON + salto de línea
         s.sendall((json.dumps(data) + "\n").encode())
-        s.close()
+
+        s.close()  # Cierra la conexión
         print("Enviado al actuador:", data)
+
     except Exception as e:
+        # Manejo de errores si falla la conexión
         print("❌ Error actuador:", e)
 
+# Crear servidor TCP
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Asociar el servidor a la IP y puerto definidos
 server.bind((HOST, PORT))
+
+# Escuchar conexiones (máximo 5 en cola)
 server.listen(5)
 
 print("🚀 Server corriendo en puerto 5000...\n")
 
+# Bucle principal del servidor (siempre activo)
 while True:
+    # Espera una conexión entrante
     conn, addr = server.accept()
     print(f"📡 Conexión desde {addr}")
 
     try:
+        # Recibe datos (máximo 1024 bytes), los decodifica y limpia espacios
         data = conn.recv(1024).decode().strip()
 
+        # Si no hay datos, continúa esperando
         if not data:
             continue
 
         print("📥 Datos:", data)
 
+        # Convierte el JSON recibido en un diccionario
         msg = json.loads(data)
+
+        # Obtiene la distancia (si no existe, usa 0 por defecto)
         distance = msg.get("distance", 0)
 
         print(f"📏 Distancia: {distance} cm")
 
+        # Lógica de control según distancia
         if distance < 50:
             send_to_actuator({"led": "yellow", "action": "on"})
         elif distance < 100:
@@ -49,6 +73,8 @@ while True:
             send_to_actuator({"led": "green", "action": "on"})
 
     except Exception as e:
+        # Manejo de errores en el servidor
         print("❌ Error server:", e)
 
+    # Cierra la conexión con el cliente (sensor)
     conn.close()
