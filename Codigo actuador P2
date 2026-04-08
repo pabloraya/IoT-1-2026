@@ -1,27 +1,34 @@
-#include <WiFi.h>
+#include <WiFi.h>  // Librería para manejar WiFi en el ESP32
 
+// Credenciales de la red WiFi
 const char* ssid = "esp32";
 const char* password = "12345678";
 
+// Se crea un servidor TCP en el puerto 6000
 WiFiServer server(6000);
 
+// Definición de pines para los LEDs
 int ledGreen = 5;
 int ledOrange = 12;
 int ledYellow = 4;
 
+// Función para conectarse al WiFi
 void conectarWiFi() {
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssid, password);  // Inicia conexión WiFi
   Serial.print("Conectando WiFi");
 
+  // Espera hasta que se conecte
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
 
+  // Mensajes de confirmación
   Serial.println("\n✅ Conectado");
-  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.localIP());  // Muestra la IP asignada
 }
 
+// Función para apagar todos los LEDs
 void apagarTodo() {
   digitalWrite(ledGreen, LOW);
   digitalWrite(ledOrange, LOW);
@@ -29,35 +36,41 @@ void apagarTodo() {
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);  // Inicia comunicación serial
 
+  // Configura los pines como salida
   pinMode(ledGreen, OUTPUT);
   pinMode(ledOrange, OUTPUT);
   pinMode(ledYellow, OUTPUT);
 
-  conectarWiFi();
-  server.begin();
+  conectarWiFi();  // Se conecta a la red WiFi
+  server.begin();  // Inicia el servidor TCP
 }
 
 void loop() {
+  // Si se pierde la conexión WiFi, intenta reconectar
   if (WiFi.status() != WL_CONNECTED) {
     conectarWiFi();
   }
 
+  // Espera si hay un cliente conectado al servidor
   WiFiClient client = server.available();
 
   if (client) {
+    // Lee el mensaje recibido hasta salto de línea
     String request = client.readStringUntil('\n');
-    request.trim();
+    request.trim();  // Elimina espacios y saltos de línea
 
+    // Muestra el mensaje recibido en el monitor serial
     Serial.println("📩 Recibido: " + request);
 
-    apagarTodo();
+    apagarTodo();  // Apaga todos los LEDs antes de activar uno
 
+    // Verifica qué color viene en el mensaje y enciende el LED correspondiente
     if (request.indexOf("green") != -1) digitalWrite(ledGreen, HIGH);
     if (request.indexOf("orange") != -1) digitalWrite(ledOrange, HIGH);
     if (request.indexOf("yellow") != -1) digitalWrite(ledYellow, HIGH);
 
-    client.stop();
+    client.stop();  // Cierra la conexión con el cliente
   }
 }
