@@ -1,71 +1,94 @@
-#include <WiFi.h>
+#include <WiFi.h>  // Librería para manejar WiFi en el ESP32
 
+// Credenciales de la red WiFi
 const char* ssid = "esp32";
 const char* password = "12345678";
 
+// Dirección IP y puerto del servidor (PC)
 const char* serverIP = "192.168.100.8";
 const int serverPort = 5000;
 
+// Cliente TCP para enviar datos al servidor
 WiFiClient client;
 
+// Pines del sensor ultrasónico HC-SR04
 int trigPin = 25;
 int echoPin = 35;
 
+// Variables para cálculo de distancia
 long duration;
 float distance;
 
+// Función para conectarse al WiFi
 void conectarWiFi() {
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssid, password);  // Inicia conexión WiFi
   Serial.print("Conectando WiFi");
 
+  // Espera hasta conectarse
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
 
+  // Mensajes de confirmación
   Serial.println("\n✅ Conectado");
-  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.localIP());  // Muestra la IP asignada
 }
 
+// Función para medir distancia con el sensor ultrasónico
 float medirDistancia() {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
 
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(trigPin, HIGH);  // Envía pulso
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  duration = pulseIn(echoPin, HIGH, 30000); // timeout
+  // Mide el tiempo que tarda en regresar el eco (con timeout de 30 ms)
+  duration = pulseIn(echoPin, HIGH, 30000);
+
+  // Convierte tiempo en distancia (cm)
   return duration * 0.034 / 2;
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);  // Inicia comunicación serial
 
+  // Configura los pines del sensor
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 
-  conectarWiFi();
+  conectarWiFi();  // Se conecta al WiFi
 }
 
 void loop() {
+  // Si se pierde la conexión WiFi, intenta reconectar
   if (WiFi.status() != WL_CONNECTED) {
     conectarWiFi();
   }
 
+  // Mide la distancia
   distance = medirDistancia();
 
+  // Muestra la distancia en el monitor serial
   Serial.print("📏 Distancia: ");
   Serial.println(distance);
 
+  // Intenta conectarse al servidor TCP
   if (client.connect(serverIP, serverPort)) {
+    // Crea un mensaje en formato JSON con la distancia
     String json = "{\"distance\":" + String(distance) + "}";
+
+    // Envía el mensaje al servidor
     client.print(json);
-    client.stop();
+
+    client.stop();  // Cierra la conexión
     Serial.println("📤 Enviado al server");
   } else {
+    // Mensaje de error si no se conecta
     Serial.println("❌ Error conectando al server");
   }
 
+  // Espera 2 segundos antes de repetir
   delay(2000);
 }
